@@ -1,0 +1,11 @@
+{
+  "name": "ouverteporte",
+  "version": "0.0.1",
+  "description": "A web app to help those trapped in paris find places to stay",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Pandelis Zembashis",
+  "license": "ISC"
+}
