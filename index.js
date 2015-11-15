@@ -147,7 +147,7 @@ function ensureAuthenticated(req, res, next) {
 }
 
 app.post('/posthouse' , ensureAuthenticated, function(req, res){
-
+  var
 });
 
 app.post('/myprojects/create', ensureAuthenticated,  function(req, res){
