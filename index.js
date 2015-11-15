@@ -148,7 +148,7 @@ function ensureAuthenticated(req, res, next) {
 }
 
 app.post('/posthouse' , ensureAuthenticated, function(req, res){
-  
+
 });
 
 app.post('/myprojects/create', ensureAuthenticated,  function(req, res){
@@ -196,6 +196,6 @@ app.get('/logout', function(req, res){
 
 
 //===============PORT=================
-var port = process.env.PORT || 5000;
+var port = process.env.PORT || 8080;
 app.listen(port);
 console.log("listening on " + port + "!");

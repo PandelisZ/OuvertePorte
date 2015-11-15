@@ -3,6 +3,7 @@
   <div class="jumbotron">
     <div class="row">
       <div class="col-md-6"><form id="posthouse" action="/posthouse" method="post">
+        <h2>Please enter the details of the space</h2>
         <div>
             <p></p>
             <label>House Description</label>
@@ -46,10 +47,7 @@
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
-
-        infoWindow.setPosition(pos);
-        infoWindow.setContent('You are here');
-        map.setCenter(pos);
+        map.setCenter(center);
       }, function() {
         handleLocationError(true, infoWindow, map.getCenter());
       });
