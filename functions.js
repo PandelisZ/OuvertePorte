@@ -2,6 +2,22 @@ var bcrypt = require('bcryptjs'),
     Q = require('q'),
     config = require('./config.js'), //config file contains all tokens and other private info
     db = require('orchestrate')(config.db); //config.db holds Orchestrate token
+//used to post location
+exports.postLocal = function (description, contact, longitude, latitude ) {
+  var deffered = Q.defer();
+  var location = {
+    "description": description,
+    "contact": contact,
+    "long": longitude,
+    "lat": latitude
+  }
+  db.put('locations', location)
+  .then(function(){
+    deffered.resolve(location);
+  })
+  return deffered.promise;
+};
+
 
 //used in local-signup strategy
 exports.localReg = function (username, password) {

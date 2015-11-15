@@ -1,7 +1,54 @@
 <!-- views/home.handlebars -->
 {{#if user}}
   <div class="jumbotron">
+    <div id="map"></div>
+    <script>function initMap() {
+var customMapType = new google.maps.StyledMapType([{"featureType":"administrative.province","elementType":"labels.text.fill","stylers":[{"color":"#3f3f3f"}]},{"featureType":"administrative.locality","elementType":"labels.text.fill","stylers":[{"color":"#3f3f3f"}]},{"featureType":"landscape.man_made","elementType":"geometry.fill","stylers":[{"color":"#ebebeb"}]},{"featureType":"landscape.man_made","elementType":"geometry.stroke","stylers":[{"lightness":"-20"}]},{"featureType":"landscape.natural","elementType":"geometry.fill","stylers":[{"color":"#f3f5f8"}]},{"featureType":"landscape.natural.landcover","elementType":"geometry.fill","stylers":[{"color":"#ff0000"}]},{"featureType":"landscape.natural.terrain","elementType":"geometry.fill","stylers":[{"color":"#ff0000"}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"poi","elementType":"geometry.fill","stylers":[{"color":"#e2e2f0"}]},{"featureType":"poi.attraction","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"poi.attraction","elementType":"geometry.fill","stylers":[{"color":"#e2e2f0"}]},{"featureType":"poi.business","elementType":"geometry.fill","stylers":[{"color":"#e2e2f0"}]},{"featureType":"poi.government","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"poi.government","elementType":"geometry.fill","stylers":[{"color":"#e2e2f0"}]},{"featureType":"poi.medical","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"poi.medical","elementType":"geometry.fill","stylers":[{"color":"#e2e2f0"}]},{"featureType":"poi.park","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"poi.park","elementType":"geometry.fill","stylers":[{"color":"#e2e2f0"}]},{"featureType":"poi.place_of_worship","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"poi.place_of_worship","elementType":"geometry.fill","stylers":[{"color":"#e2e2f0"}]},{"featureType":"poi.school","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"poi.sports_complex","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"poi.sports_complex","elementType":"geometry.fill","stylers":[{"color":"#c8e2be"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ed5152"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"visibility":"off"}]},{"featureType":"road.highway","elementType":"labels.text.fill","stylers":[{"color":"#2b313e"}]},{"featureType":"road.highway","elementType":"labels.text.stroke","stylers":[{"color":"#ffffff"}]},{"featureType":"road.highway.controlled_access","elementType":"geometry.stroke","stylers":[{"visibility":"off"}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#ed5152"}]},{"featureType":"road.arterial","elementType":"labels.text.fill","stylers":[{"color":"#2b313e"}]},{"featureType":"road.local","elementType":"geometry.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"road.local","elementType":"geometry.stroke","stylers":[{"color":"#b4b4b4"},{"visibility":"on"}]},{"featureType":"transit.station.airport","elementType":"geometry.fill","stylers":[{"color":"#e2e2f0"}]},{"featureType":"water","elementType":"geometry.fill","stylers":[{"color":"#85b4e4"}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"water","elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#7d94c6"}]}],
+{
+  name: 'Custom Style'
+});
 
+var customMapTypeId = 'custom_style';
+
+  var map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: -34.397, lng: 150.644},
+    zoom: 13
+  });
+  var infoWindow = new google.maps.InfoWindow({map: map});
+
+  // Try HTML5 geolocation.
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+
+      infoWindow.setPosition(pos);
+      infoWindow.setContent('You are here');
+      map.setCenter(pos);
+    }, function() {
+      handleLocationError(true, infoWindow, map.getCenter());
+    });
+  } else {
+    // Browser doesn't support Geolocation
+    handleLocationError(false, infoWindow, map.getCenter());
+  }
+
+  map.mapTypes.set(customMapTypeId, customMapType);
+  map.setMapTypeId(customMapTypeId);
+}
+
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+  infoWindow.setPosition(pos);
+  infoWindow.setContent(browserHasGeolocation ?
+                        'Error: The Geolocation service failed.' :
+                        'Error: Your browser doesn\'t support geolocation.');
+}
+ </script>
+ <script src="https://maps.googleapis.com/maps/api/js?key={{mapsapi}}&signed_in=true&callback=initMap"
+        async defer>
+    </script>
   </div>
   <div class="panel panel-default">
     <div class="panel-heading">
@@ -24,5 +71,6 @@
       </a>
     </p>
   </div>
+
 
 {{/if}}

@@ -5,7 +5,7 @@ var express = require('express'),
     TwitterStrategy = require('passport-twitter'),
     GoolgeStrategy = require('passport-google'),
     FacebookStrategy = require('passport-facebook');
-    
+
 
 var config = require('./config.js'), //config file contains all tokens and other private info
     funct = require('./functions.js');
@@ -112,6 +112,11 @@ app.use(app.router);
 // Configure express to use handlebars templates
 var hbs = exphbs.create({
     defaultLayout: 'main',
+    helpers: {
+       foo: function () { return 'FOO!'; },
+       bar: function () { return 'BAR!'; },
+       mapsapi: function() { return 'AIzaSyBaBmoc-yLvfXoqKUeq100k0A_g2MHpW78';}
+   }
 });
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
@@ -128,6 +133,43 @@ app.get('/signin', function(req, res){
   res.render('signin');
 });
 
+//displays our location post page
+app.get('/postlocation', function(req, res){
+  res.render('postlocation', {user: req.user});
+});
+
+app.use(express.static(__dirname + '/public'));
+
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) { return next(); }
+  req.session.error = 'Please sign in!';
+  res.redirect('/signin');
+}
+
+app.post('/posthouse' , ensureAuthenticated, function(req, res){
+
+});
+
+app.post('/myprojects/create', ensureAuthenticated,  function(req, res){
+	var project = {
+		name: req.body.projectName,
+		link: req.body.projectLink,
+		image: req.body.projectImage,
+		description: req.body.projectDesc
+	};
+
+	// create a new project for the user
+	votes.createProject(project, req.user)
+	.then(function () {
+		req.session.success = 'Project Created!';
+		res.redirect('/myprojects');
+	})
+	.fail(function () {
+		req.session.error = 'Project failed to be created.';
+		res.redirect('/myprojects');
+	});
+});
+
 //sends the request through our local signup strategy, and if successful takes user to homepage, otherwise returns then to signin page
 app.post('/local-reg', passport.authenticate('local-signup', {
   successRedirect: '/',
@@ -136,7 +178,7 @@ app.post('/local-reg', passport.authenticate('local-signup', {
 );
 
 //sends the request through our local login/signin strategy, and if successful takes user to homepage, otherwise returns then to signin page
-app.post('/login', passport.authenticate('local-signin', { 
+app.post('/login', passport.authenticate('local-signin', {
   successRedirect: '/',
   failureRedirect: '/signin'
   })

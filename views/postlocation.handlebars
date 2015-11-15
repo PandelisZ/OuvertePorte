@@ -1,0 +1,38 @@
+<!-- views/postlocation.handlebars -->
+{{#if user}}
+  <div class="jumbotron">
+    <form id="posthouse" action="/posthouse" method="post">
+      <div>
+          <p></p>
+          <label>House Description</label>
+          <input type="text" name="description"/>
+      </div>
+      <div>
+          <label>Contact Details</label>
+          <input type="text" name="contact"/>
+      </div>
+      <div>
+          <label>Location</label>
+          <input type="text" name="longitude"/>
+          <input type="text" name="latitude"/>
+      </div>
+      <div>
+          <input type="submit" class="btn btn-primary btn-sm" value="Publish"/>
+      </div>
+    </form>
+  </div>
+
+{{else}}
+  <div class="jumbotron">
+    <h1>You are not signed in</h1>
+    <p>please sign in to use this page</p>
+    <p>
+      <a href="/signin" class="btn btn-primary btn-lg" role="button">
+        <span class="glyphicon glyphicon-user"></span>
+        Sign in!
+      </a>
+    </p>
+  </div>
+
+
+{{/if}}
