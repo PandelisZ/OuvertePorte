@@ -1,12 +1,12 @@
 {
-  "name": "userAuth",
-  "version": "0.0.0",
-  "description": "Tutorial walking through user Auth with express passport and Orchestrate",
+  "name": "OuvertePorte",
+  "version": "0.0.1",
+  "description": "Applicaiton that provides users with safe locations to stay",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Jhenna Voorhis",
+  "author": "Pandelis Zembashis",
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^0.7.12",

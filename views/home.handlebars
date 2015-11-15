@@ -1,8 +1,7 @@
 <!-- views/home.handlebars -->
 {{#if user}}
   <div class="jumbotron">
-    <h1>Orchestrate User Authentication</h1>
-    <p>Below is your profile information!</p>
+
   </div>
   <div class="panel panel-default">
     <div class="panel-heading">
@@ -13,18 +12,17 @@
       <p>Avatar: <img src="{{user.avatar}}"/></p>
     </div>
   </div>
-  
+
 {{else}}
   <div class="jumbotron">
-    <h1>Orchestrate User Authentication</h1>
-    <p>Sign in and view your profile!</p>
+    <h1>OuvertePorte</h1>
+    <p>Find a safe place to stay if you are stranded</p>
     <p>
       <a href="/signin" class="btn btn-primary btn-lg" role="button">
-        <span class="glyphicon glyphicon-user"></span> 
+        <span class="glyphicon glyphicon-user"></span>
         Sign in!
       </a>
     </p>
   </div>
-  
+
 {{/if}}
-   
