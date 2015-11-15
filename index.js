@@ -5,6 +5,7 @@ var express = require('express'),
     TwitterStrategy = require('passport-twitter'),
     GoolgeStrategy = require('passport-google'),
     FacebookStrategy = require('passport-facebook');
+var pg = require('pg');
 
 
 var config = require('./config.js'), //config file contains all tokens and other private info
@@ -147,7 +148,7 @@ function ensureAuthenticated(req, res, next) {
 }
 
 app.post('/posthouse' , ensureAuthenticated, function(req, res){
-  var
+  
 });
 
 app.post('/myprojects/create', ensureAuthenticated,  function(req, res){
